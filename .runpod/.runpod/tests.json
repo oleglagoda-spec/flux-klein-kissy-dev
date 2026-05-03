@@ -1,10 +1,21 @@
 {
   "tests": [
     {
-      "name": "Validation",
+      "name": "flux_generation_test",
       "input": {
-        "prompt": "A beautiful cinematic photo"
-      }
+        "prompt": "A beautiful cinematic photo of a cyberpunk city"
+      },
+      "timeout": 600000 
     }
-  ]
+  ],
+  "config": {
+    "gpuTypeId": "NVIDIA GeForce RTX 4090",
+    "gpuCount": 1,
+    "containerDiskInGb": 50,
+    "allowedCudaVersions": [
+      "12.6",
+      "12.7",
+      "12.8"
+    ]
+  }
 }
