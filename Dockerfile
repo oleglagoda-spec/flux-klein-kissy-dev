@@ -1,29 +1,27 @@
-# Используем образ с PyTorch 2.4.0, который нужен новому ComfyUI
-# Используем проверенную базу, которая точно собирается в RunPod
 FROM runpod/pytorch:2.2.1-py3.10-cuda12.1.1-devel-ubuntu22.04
 
 WORKDIR /workspace
 
-# Устанавливаем aria2 и системные зависимости
-RUN apt-get update && apt-get install -y git wget curl python3-pip aria2
+# Установка aria2 для загрузки и системных утилит
+RUN apt-get update && apt-get install -y git wget curl python3-pip aria2 [cite: 101, 102]
 
-# Обновляем pip и ставим Jupyter Lab
-RUN pip install --upgrade pip && pip install --no-cache-dir jupyterlab
+# Установка Jupyter Lab
+RUN pip install --no-cache-dir jupyterlab [cite: 103, 110]
 
-# Клонируем ComfyUI и устанавливаем зависимости (фиксируем версии для стабильности)
+# Клонирование ComfyUI
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git . && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt [cite: 293]
 
-# Устанавливаем ComfyUI-Manager
+# Установка Менеджера узлов (ComfyUI-Manager)
 RUN mkdir -p /workspace/custom_nodes && \
     cd /workspace/custom_nodes && \
-    git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+    git clone https://github.com/ltdrdata/ComfyUI-Manager.git [cite: 322]
 
 # Копируем скрипт запуска
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Открываем порты для доступа
+# Открываем порты доступа
 EXPOSE 8181 8888
 
 ENTRYPOINT ["/entrypoint.sh"]
