@@ -1,0 +1,10 @@
+{
+  "title": "Flux Klein Kissy",
+  "description": "Custom Flux Klein with Qwen Encoders and Loras",
+  "type": "serverless",
+  "category": "image",
+  "config": {
+    "runOn": "GPU",
+    "containerDiskInGb": 50
+  }
+}
