@@ -1,11 +1,11 @@
 {
   "tests": [
     {
-      "name": "flux_generation_test",
+      "name": "flux_klein_test",
       "input": {
-        "prompt": "A beautiful cinematic photo of a cyberpunk city"
+        "prompt": "A high-quality photo of a mystical forest"
       },
-      "timeout": 600000 
+      "timeout": 600000
     }
   ],
   "config": {
@@ -13,6 +13,8 @@
     "gpuCount": 1,
     "containerDiskInGb": 50,
     "allowedCudaVersions": [
+      "12.4",
+      "12.5",
       "12.6",
       "12.7",
       "12.8"
