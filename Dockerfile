@@ -1,19 +1,20 @@
 FROM runpod/pytorch:2.2.1-py3.10-cuda12.1.1-devel-ubuntu22.04
 
-WORKDIR /
+WORKDIR /workspace
 
-RUN apt-get update && apt-get install -y git wget curl
+# Установка системных зависимостей и Jupyter
+RUN apt-get update && apt-get install -y git wget curl python3-pip
+RUN pip install jupyterlab
 
-RUN pip install --no-cache-dir \
-    runpod==1.9.0 \
-    diffusers==0.30.3 \
-    transformers==4.44.2 \
-    accelerate==0.34.0 \
-    safetensors \
-    requests
+# Клонируем ComfyUI
+RUN git clone https://github.com/comfyanonymous/ComfyUI.git .
+RUN pip install -r requirements.txt
 
-ENV ACCELERATE_USE_XPU=False
+# Скрипт автоматической загрузки твоих моделей
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-COPY handler.py /handler.py
+# Открываем порты: 8181 для ComfyUI, 8888 для Jupyter
+EXPOSE 8181 8888
 
-CMD [ "python", "-u", "/handler.py" ]
+ENTRYPOINT ["/entrypoint.sh"]
